@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<name>Price view category</name>
+	<code>Price view category</code>
+	<version>1.0.0</version>
+	<author>sergeomikh@gmail.com</author>
+
+    <file path="catalog/controller/product/{category,special,manufacturer,search}*.php">
+		<operation>
+			<search><![CDATA[
+            $data['button_grid'] = $this->language->get('button_grid');
+            ]]></search>
+			<add position="after"><![CDATA[				
+			$data['button_price'] = "Прайслист";
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[           
+           public function index() {
+           ]]></search>
+			<add position="after"><![CDATA[
+			$this->document->addStyle('catalog/view/theme/default/stylesheet/priceview.css');
+			$this->document->addScript('catalog/view/javascript/priceview.js');
+			]]></add>
+		</operation>				
+    </file>
+	<file path="catalog/view/theme/*/template/product/{category,special,manufacturer_info,search}*.tpl">
+		<operation>
+			<search><![CDATA[
+            <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></button>
+            ]]></search>
+			<add position="replace"><![CDATA[				
+			<button type="button" id="list-view-new" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></button>
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[           
+            <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></button>]]></search>
+			<add position="replace"><![CDATA[<button type="button" id="grid-view-new" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></button>
+			<button type="button" id="price-view" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_price; ?>"><i class="fa fa-file-text-o"></i></button>
+			]]></add>
+		</operation>				
+	</file>	
+</modification>
